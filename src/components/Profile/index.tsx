@@ -1,10 +1,15 @@
 import ProfileData from "./ProfileData.tsx";
 import UpdateUser from "./UpdateUser.tsx";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {clearUser} from "../../features/user/userSlice.ts";
+import {clearToken} from "../../features/token/tokenSlice.ts";
 
 const Index = () => {
+    const dispatch = useAppDispatch()
+
     const handleClickLogout = () => {
-        // todo: send request to backend
-        alert("Logout clicked")
+        dispatch(clearToken())
+        dispatch(clearUser())
     }
 
     return (
