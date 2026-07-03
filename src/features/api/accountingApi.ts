@@ -3,7 +3,7 @@ import type {UserRegister, UserUpdate} from "../../utils/types";
 import {BASE_URL, createToken} from "../../utils/constans.ts";
 import type {RootState} from "../../app/store.ts";
 
-export const register = createAsyncThunk(
+export const registerUser = createAsyncThunk(
     'user/register',
     async (user: UserRegister) => {
         const response = await fetch(`${BASE_URL}/account/register`, {

@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useAppDispatch} from "../../app/hooks.ts";
-import {register} from "../../features/api/accountingApi.ts";
+import {registerUser} from "../../features/api/accountingApi.ts";
 
 const SignUp = () => {
     const [login, setLogin] = useState("")
@@ -10,7 +10,7 @@ const SignUp = () => {
     const dispatch = useAppDispatch()
 
     const handleClickSignUp = () => {
-        dispatch(register({
+        dispatch(registerUser({
             firstName, lastName, login, password
         }))
     }

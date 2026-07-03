@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {changePassword, fetchUser, register} from "../api/accountingApi.ts";
+import {changePassword, fetchUser, registerUser} from "../api/accountingApi.ts";
 
 const initialState = ''
 
@@ -12,7 +12,7 @@ const tokenSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(register.fulfilled, (_state, action) => action.payload.token)
+            .addCase(registerUser.fulfilled, (_state, action) => action.payload.token)
             .addCase(fetchUser.fulfilled, (_state, action) => action.payload.token)
             .addCase(changePassword.fulfilled, (_state, action) => action.payload)
     },

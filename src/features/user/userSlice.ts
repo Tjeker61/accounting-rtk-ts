@@ -1,6 +1,6 @@
 import type {UserProfile} from "../../utils/types";
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchUser, register, updateUser} from "../api/accountingApi.ts";
+import {fetchUser, registerUser, updateUser} from "../api/accountingApi.ts";
 
 const initialState = {} as UserProfile
 
@@ -22,7 +22,7 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
     builder
-        .addCase(register.fulfilled, (_state, action) => action.payload.user)
+        .addCase(registerUser.fulfilled, (_state, action) => action.payload.user)
         .addCase(fetchUser.fulfilled, (_state, action) => action.payload.user)
         .addCase(updateUser.fulfilled, (state, action) => {
             state.firstName = action.payload.firstName
