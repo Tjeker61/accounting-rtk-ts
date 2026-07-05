@@ -24,7 +24,7 @@ const ChangePassword = ({close}: Props) => {
             return
         }
 
-        dispatch(changePassword(newPassword))
+        dispatch(changePassword({newPassword, oldPassword}))
         close()
     }
 
