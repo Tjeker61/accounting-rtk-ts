@@ -1,19 +1,20 @@
 import {configureStore} from "@reduxjs/toolkit";
-import user from "../features/user/userSlice";
 import token from "../features/token/tokenSlice";
-import type {UserProfile} from "../utils/types";
+import {accountingApi} from "../features/api/accountingApi.ts";
 
 export const store = configureStore(
     {
         reducer: {
-            user, token
+            token,
+            [accountingApi.reducerPath]: accountingApi.reducer,
         },
-        preloadedState: JSON.parse(localStorage.getItem('state') || '{}') as { token: string, user: UserProfile },
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(accountingApi.middleware),
+        preloadedState: JSON.parse(localStorage.getItem('state') || '{}') as {token: string},
     }
 )
 
 store.subscribe(() => {
-    localStorage.setItem('state', JSON.stringify(store.getState()))
+    localStorage.setItem('state', JSON.stringify({token: store.getState().token}))
 })
 
 export type RootState = ReturnType<typeof store.getState>

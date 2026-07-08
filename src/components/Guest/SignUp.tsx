@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {useAppDispatch} from "../../app/hooks.ts";
-import {registerUser} from "../../features/api/accountingApi.ts";
+import {useRegisterUserMutation} from "../../features/api/accountingApi.ts";
+import {setToken} from "../../features/token/tokenSlice.ts";
+import {createToken} from "../../utils/constans.ts";
 
 const SignUp = () => {
     const [login, setLogin] = useState("")
@@ -8,11 +10,19 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const dispatch = useAppDispatch()
+    const [registerUser] = useRegisterUserMutation()
 
-    const handleClickSignUp = () => {
-        dispatch(registerUser({
-            firstName, lastName, login, password
-        }))
+    const handleClickSignUp = async () => {
+        try {
+            const {data, error} = await registerUser({login, password, firstName, lastName})
+            if(error) {
+                console.log('sign up error: ', error)
+            } else {
+                dispatch(setToken(createToken(data.login, password)))
+            }
+        } catch (e) {
+            console.log('unknown error:')
+        }
     }
 
     const handleClickClear = () => {
